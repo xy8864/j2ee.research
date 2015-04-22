@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="target" value="System.err" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss} %c{1}.%M(%L) %m%n" />
+		</layout>
+		<!-- 
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+		</filter>
+		 -->
+	</appender>
+	<appender name="CONSOLE-WARN" class="org.apache.log4j.ConsoleAppender">
+		<param name="target" value="System.err" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%7r] %6p - %30.30c - %m \n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="WARN" />
+		</filter>
+	</appender>
+	<appender name="CONSOLE-DEBUG" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%7r] %6p - %30.30c - %m \n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="DEBUG" />
+			<param name="LevelMax" value="DEBUG" />
+		</filter>
+	</appender>
+	<appender name="CONSOLE-ALL" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%7r] %6p - %30.30c - %m \n" />
+		</layout>
+	</appender>
+	<appender name="DIALOG" class="com.intellij.diagnostic.DialogAppender">
+	</appender>
+	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+		<param name="MaxFileSize" value="1Mb" />
+		<param name="MaxBackupIndex" value="3" />
+		<param name="file" value="$SYSTEM_DIR$/log/idea.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%7r] %6p - %30.30c - %m \n" />
+		</layout>
+	</appender>
+
+	<category name="com.opensymphony.xwork2.conversion" >
+		<priority value="DEBUG"/><appender-ref ref="CONSOLE" />
+	</category>
+	<category name="org.apache.struts2"><priority value="DEBUG"/></category>
+	<category name="org.mortbay.jetty"><priority value="DEBUG"/></category>
+	<category name="org.eclipse.jetty"><priority value="DEBUG"/></category>
+	<category name="org.springframework"><priority value="INFO"/></category>
+	<category name="j2ee.research"><priority value="debug"/></category>
+
+	<root>
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+		<!-- <appender-ref ref="DIALOG"/> -->
+		<!-- <appender-ref ref="CONSOLE-WARN"/> -->
+		<!-- <appender-ref ref="FILE"/> -->
+	</root>
+</log4j:configuration>

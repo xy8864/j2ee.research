@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="target" value="System.err" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss} %6p %c.%M(%L) %m%n" />
+		</layout>
+		<!-- 
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+		</filter>
+		 -->
+	</appender>
+	<appender name="short" class="org.apache.log4j.ConsoleAppender">
+		<param name="target" value="System.err" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss} %6p %c{1}.%M(%L) %m%n" />
+		</layout>
+	</appender>
+	<appender name="sql" class="org.apache.log4j.ConsoleAppender">
+		<param name="target" value="System.err" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="sql: %m%n" />
+		</layout>
+	</appender>
+	<appender name="CONSOLE-WARN" class="org.apache.log4j.ConsoleAppender">
+		<param name="target" value="System.err" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%7r] %6p - %30.30c - %m \n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="WARN" />
+		</filter>
+	</appender>
+	<appender name="CONSOLE-DEBUG" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%7r] %6p - %30.30c - %m \n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="DEBUG" />
+			<param name="LevelMax" value="DEBUG" />
+		</filter>
+	</appender>
+	<appender name="CONSOLE-ALL" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%7r] %6p - %30.30c - %m \n" />
+		</layout>
+	</appender>
+	<appender name="DIALOG" class="com.intellij.diagnostic.DialogAppender">
+	</appender>
+	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+		<param name="MaxFileSize" value="1Mb" />
+		<param name="MaxBackupIndex" value="3" />
+		<param name="file" value="$SYSTEM_DIR$/log/idea.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%7r] %6p - %30.30c - %m \n" />
+		</layout>
+	</appender>
+
+	<!--
+	<category name="com.googlecode.hibernate.memcached.MemcachedCache" additivity="false"><priority value="warn"/><appender-ref ref="cache" /></category>
+	<category name="net.rubyeye.xmemcached" additivity="false"><priority value="WARN"/><appender-ref ref="cache" /></category>
+	<category name="net.spy.memcached" additivity="false"><priority value="WARN"/><appender-ref ref="cache" /></category>
+	<category name="org.hibernate.cache" additivity="false"><priority value="WARN"/><appender-ref ref="cache" /></category>
+	<category name="net.sourceforge.jdbclogger" additivity="false"><priority value="debug"/><appender-ref ref="jdbclogger" /></category>
+	-->
+	<category name="druid.sql" additivity="false"><priority value="DEBUG"/><appender-ref ref="sql"/></category>
+	<category name="druid.sql.Statement" additivity="false"><priority value="DEBUG"/><appender-ref ref="sql"/></category>
+	<category name="druid.sql.ResultSet" additivity="false"><priority value="WARN"/><appender-ref ref="sql"/></category>
+	<category name="druid.sql.Connection" additivity="false"><priority value="WARN"/><appender-ref ref="sql"/></category>
+	<category name="com.alibaba.druid" additivity="false"><priority value="DEBUG"/><appender-ref ref="CONSOLE"/></category>
+
+	<category name="com.opensymphony.xwork2.conversion" additivity="false"><priority value="WARN"/><appender-ref ref="CONSOLE" /></category>
+	<category name="com.opensymphony.xwork2.config" additivity="false"><priority value="WARN"/><appender-ref ref="CONSOLE" /></category>
+	<category name="org.apache.struts2.util.fs"><priority value="WARN"/></category>
+	<category name="org.apache.struts2.config"><priority value="WARN"/></category>
+	<category name="org.apache.struts2.components"><priority value="WARN"/></category>
+	<category name="org.apache.struts2"><priority value="INFO"/></category>
+	<category name="org.mortbay.jetty"><priority value="WARN"/></category>
+	<category name="org.eclipse.jetty"><priority value="WARN"/></category>
+	<category name="org.springframework"><priority value="INFO"/></category>
+	<category name="j2ee.research" additivity="false"><priority value="debug"/><appender-ref ref="short" /></category>
+	<category name="org.mybatis" additivity="false"><priority value="debug"/><appender-ref ref="short" /></category>
+
+	<category name="org.apache.ibatis" additivity="false"><priority value="debug"/><appender-ref ref="short" /></category>
+	<category name="java.sql.ResultSet" additivity="false"><priority value="DEBUG"/><appender-ref ref="sql" /></category>
+	<category name="java.sql.Connection" additivity="false"><priority value="DEBUG"/><appender-ref ref="sql" /></category>
+	<category name="java.sql.Statement" additivity="false"><priority value="DEBUG"/><appender-ref ref="sql" /></category>
+	<category name="java.sql.PreparedStatement" additivity="false"><priority value="DEBUG"/><appender-ref ref="sql" /></category>
+	<root>
+		<priority value="info" />
+		<appender-ref ref="CONSOLE" />
+		<!-- <appender-ref ref="DIALOG"/> -->
+		<!-- <appender-ref ref="CONSOLE-WARN"/> -->
+		<!-- <appender-ref ref="FILE"/> -->
+	</root>
+</log4j:configuration>

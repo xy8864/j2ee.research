@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+		"-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这块等于dao接口的实现  namespace必须和接口的类路径一样-->
+<mapper namespace="j2ee.research.struts2.dao.UserMapper">
+	<resultMap id="UserResultMap" type="User" >
+		<id property="id" column="id" javaType="long" jdbcType="BIGINT"/>
+		<result property="username" column="username" javaType="string"/>
+		<result property="password" column="password" javaType="string"/>
+		<result property="fullName" column="fullName" javaType="string"/>
+		<result property="fullName" column="fullName" javaType="string"/>
+		<result property="email" column="email" javaType="string"/>
+		<result property="passwordHint" column="password_hint" javaType="string"/>
+		<result property="accountEnabled" column="account_enabled" javaType="boolean" jdbcType="CHAR" typeHandler="org.apache.ibatis.type.BooleanTypeHandler"/>
+		<result property="companyId" column="companyId" javaType="long" jdbcType="BIGINT"/>
+		<result property="deptId" column="deptId" javaType="long" jdbcType="BIGINT"/>
+		<result property="version" column="version" javaType="int" jdbcType="INTEGER"/>
+	</resultMap>
+	<!-- 创建一个每60秒刷新一次的FIFO缓存，存储512个结果对象或列表的引用，并且返回的对象是只读的。因此在不用的线程里的调用者修改它们可能会引用冲突 -->
+	<cache eviction="LRU" flushInterval="60000" size="512" readOnly="true"/>
+	<!--
+		flushCache 如果设为true，则会在每次语句调用的时候就会清空缓存。select 语句默认设为false
+		useCache   如果设为true，则语句的结果集将被缓存。select 语句默认设为false
+	-->
+	<!-- findById必须和接口中的方法名一样  返回一个User  就是刚才的别名  如果不弄别名要连类路径一起写 麻烦-->
+	<select id="findById" parameterType="long" resultType="User" resultMap="UserResultMap" useCache="true" flushCache="false">
+		select * from app_user where id=#{id}
+	</select>
+	<select id="findByUserName" parameterType="string" resultType="User" resultMap="UserResultMap">
+		select * from app_user where username=#{username}
+	</select>
+	<select id="login" parameterType="User" resultType="User" resultMap="UserResultMap">
+		select * from app_user where username=#{username} and password=sha(#{password}) and account_enabled='Y'
+	</select>
+
+	<select id="findUsers" parameterType="string" resultType="User" resultMap="UserResultMap" fetchSize="20" >
+		select * from app_user where username=#{username}
+		<where>
+			<if test="username!=null and username.trim().length>0">
+				username like #{username}
+			</if>
+			<if test="email!=null and email.trim().length>0">
+				email=#{username}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insertUser" parameterType="User">
+		insert into app_user(username,password) values(#{username},sha(#{password}))
+	</insert>
+</mapper>

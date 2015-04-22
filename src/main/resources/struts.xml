@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+		"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+		"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true"/>
+	<constant name="struts.action.extension" value="action"/>
+	<!--
+	<constant name="struts.objectFactory" value="spring"/>
+	-->
+	<!--
+	struts.action.extension=action
+	<constant name="struts.locale" value="zh_CN"/>
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	-->
+	<!--
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" /
+	<package name="default"  extends="struts-default">
+        <action name="book_*" class="com.action.BookAction" method="{1}">
+            <result name="index">index.jsp</result>
+            <result name="book">book.jsp</result>
+            <result name="gouwu">gouwu.jsp</result>
+        </action>
+    </package>
+	-->
+	<!-- namespace 默认继承 struts-default 的 '/' -->
+	<package name="default" extends="struts-default" namespace="/">
+		<interceptors>
+			<interceptor name="webDebugLogger" class="j2ee.research.struts2.webapp.interceptor.Struts2WebDebugLoggerInterceptor"/>
+			<!--
+						<interceptor name="sessionCheckInterceptor" class="j2ee.research.struts2.webapp.interceptor.SessionCheckInterceptor"/>
+						-->
+			<interceptor-stack name="myStack">
+				<!--
+				<interceptor-ref name="sessionCheckInterceptor">
+					<param name="reLoginResult">login</param>
+				</interceptor-ref>
+
+				<interceptor-ref name="webDebugLogger"/>-->
+				<interceptor-ref name="timer"/>
+				<!--<interceptor-ref name="defaultStack"/>-->
+			</interceptor-stack>
+		</interceptors>
+		<!--
+		<default-interceptor-ref name="myStack"/>
+		-->
+
+		<default-action-ref name="notFound"/>
+		<global-results>
+			<result name="login">/struts2/login.jsp</result>
+			<result name="index">/index.jsp</result>
+		</global-results>
+
+		<action name="notFound">
+			<result>404.jsp</result>
+		</action>
+		<action name="index"><result>/index.jsp</result></action>
+		<action name="input"><result>/struts2/login.jsp</result></action>
+	</package>
+	<package name="app-default" extends="default" namespace="/">
+		<action name="hello" class="j2ee.research.struts2.webapp.action.HelloAction">
+			<result name="success">/WEB-INF/pages/struts2/hello.jsp</result>
+		</action>
+		<action name="login" class="j2ee.research.struts2.webapp.action.LoginAction">
+			<!--interceptor-ref name="token"/-->
+			<result name="input">/struts2/login.jsp</result>
+			<result name="success">/WEB-INF/pages/struts2/success.jsp</result>
+		</action>
+
+
+	</package>
+</struts>

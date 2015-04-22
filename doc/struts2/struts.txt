@@ -1,0 +1,9 @@
+ActionSupport类本身实现了Action接口，所以继承ActionSupport类就相当于实现了Action接口。
+	除此之外，ActionSupport类还实现了其它几个接口，来为程序员提供更多使用的功能，比如：
+com.opensymphony.xwork2.Validateable：提供validate()方法来为Action增加验证的功能
+com.opensymphony.xwork2.Validateaware：提供方法来保存和恢复action或field级的错误信息
+com.opensymphony.xwork2.TextProvider：提供获取本地信息文本的功能
+com.opensymphony.xwork2.LocaleProvider：提供getLocale()方法来获取本地消息
+
+struts.xml配置:http://rubbing-struts2.iteye.com/blog/1493714
+

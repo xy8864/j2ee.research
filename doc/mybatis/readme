@@ -1,0 +1,37 @@
+mybatis mappers的配置有四种：
+1：使用classpath应用资源
+<!-- Using classpath relative resources -->
+<mappers>
+ <mapper resource="org/mybatis/builder/AuthorMapper.xml"/>
+ <mapper resource="org/mybatis/builder/BlogMapper.xml"/>
+ <mapper resource="org/mybatis/builder/PostMapper.xml"/>
+</mappers>
+2：使用本地文件
+<!-- Using url fully qualified paths -->
+<mappers>
+<mapper url="file:///var/mappers/AuthorMapper.xml"/>
+<mapper url="file:///var/mappers/BlogMapper.xml"/>
+<mapper url="file:///var/mappers/PostMapper.xml"/>
+</mappers>
+3：使用接口类
+<!-- Using mapper interface classes --><mappers>
+<mapper class="org.mybatis.builder.AuthorMapper"/>
+<mapper class="org.mybatis.builder.BlogMapper"/>
+<mapper class="org.mybatis.builder.PostMapper"/>
+</mappers>
+4：使用包名
+<!-- Register all interfaces in a package as mappers -->
+<mappers>
+<package name="org.mybatis.builder"/>
+</mappers>
+
+
+<mapper namespace=" com.mybatis.dao.EntityMapperInterface">
+    <select id="selectEmployeeWithId" parameterType="Long"
+        resultType="com.mybatis.domain.Employee">
+        select id,name from employee where 1=1
+        <if test="_parameter != null">
+            AND id=#{id}
+        </if>
+        order by id
+    </select>

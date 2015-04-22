@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="true"/>
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="aggressiveLazyLoading" value="true"/>
+	</settings>
+
+
+
+	<!-- 别名配置 -->
+	<typeAliases>
+		<typeAlias alias="User" type="j2ee.research.struts2.domain.User"/>
+		<typeAlias alias="StudentEntity" type="j2ee.research.struts2.domain.StudentEntity"/>
+	</typeAliases>
+	<mappers>
+		<!--userMapper.xml装载进来  同等于把“dao”的实现装载进来 -->
+		<!-- examples
+			<mapper resource="org/mybatis/builder/AuthorMapper.xml"/>
+			<mapper url="file:///var/mapper/AuthorMapper.xml"/>
+			<package name="j2ee.research.struts2.dao.mapper"/>
+		-->
+		<!--
+		<package name="j2ee.research.struts2.dao.mapper"/>
+		<mapper resource="j2ee/research/struts2/dao/mapper/UserMapper.xml"/>
+		<mapper resource="j2ee/research/struts2/dao/mapper/UserMapper.xml"/>
+		-->
+		<mapper resource="conf/mybatis/mapper/StudentMapper.xml"/>
+		<mapper resource="conf/mybatis/mapper/UserMapper.xml"/>
+
+
+	</mappers>
+
+</configuration>

@@ -1,0 +1,29 @@
+/* 建立数据库 */
+#CREATE DATABASE STUDENT_MANAGER;
+#USE STUDENT_MANAGER;
+
+/***** 建立student表 *****/
+CREATE TABLE STUDENT_TBL
+(
+   STUDENT_ID         BIGINT PRIMARY KEY,
+   STUDENT_NAME       VARCHAR(50) NOT NULL,
+   STUDENT_SEX        VARCHAR(10),
+   STUDENT_BIRTHDAY   DATE,
+   CLASS_ID           VARCHAR(255)
+);
+
+/*插入学生数据*/
+INSERT INTO STUDENT_TBL (STUDENT_ID,
+                         STUDENT_NAME,
+                         STUDENT_SEX,
+                         STUDENT_BIRTHDAY,
+                         CLASS_ID)
+  VALUES   (1,
+            '某某某',
+            '女',
+            '1980-08-01',
+            121546
+            )
+
+
+http://www.cnblogs.com/yqskj/articles/2203312.html
